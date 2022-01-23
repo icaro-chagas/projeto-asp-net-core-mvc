@@ -37,11 +37,11 @@ namespace ServiceWebMvc
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<ServiceWebMvcContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ServiceWebMvcContext")));
+                    options.UseMySql(Configuration.GetConnectionString("ServiceWebMvcContext"), builder =>
+                        builder.MigrationsAssembly("ServiceWebMvc")));
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
