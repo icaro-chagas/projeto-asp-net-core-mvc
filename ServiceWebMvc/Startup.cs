@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ServiceWebMvc.Models;
 using ServiceWebMvc.Data;
+using ServiceWebMvc.Services;
 
 namespace ServiceWebMvc
 {
@@ -42,6 +43,7 @@ namespace ServiceWebMvc
                         builder.MigrationsAssembly("ServiceWebMvc")));
 
             services.AddScoped<SeedingService>();
+            services.AddScoped<SellerService>();
         }
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
             public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingService)
