@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ServiceWebMvc.Models;
 using ServiceWebMvc.Data;
 
 namespace ServiceWebMvc
@@ -39,13 +40,16 @@ namespace ServiceWebMvc
             services.AddDbContext<ServiceWebMvcContext>(options =>
                     options.UseMySql(Configuration.GetConnectionString("ServiceWebMvcContext"), builder =>
                         builder.MigrationsAssembly("ServiceWebMvc")));
+
+            services.AddScoped<SeedingService>();
         }
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-            public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+            public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingService)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                seedingService.Seed();
             }
             else
             {
